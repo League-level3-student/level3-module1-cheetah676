@@ -35,7 +35,7 @@ public class _02_GuestBook implements ActionListener {
 		panel.add(button2);
 		button1.addActionListener(this);
 		button2.addActionListener(this);
-		button1.setText("AddName");
+		button1.setText("Add Name");
 		button2.setText("View Names");
 		frame.setVisible(true);
 		frame.pack();

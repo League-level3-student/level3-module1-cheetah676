@@ -16,7 +16,10 @@ public class _05_LongChipCompetition {
 
 	public static void main(String[] args) {
 		_05_LongChipCompetition lcc = new _05_LongChipCompetition();
-		
+		lcc.initializeBeatles();
+		for(int i=0; i<444; i++) {
+			
+		}
 	}
 	
 	private void initializeBeatles() {
