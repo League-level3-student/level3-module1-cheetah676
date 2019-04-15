@@ -30,7 +30,8 @@ public class _02_TextUndoRedo<Integers> implements KeyListener {
 	String text = "";
 	Stack<String> letters = new Stack<String>();
 	ArrayList<String> typed = new ArrayList<String>();
-
+	Stack <String> deleted = new Stack <String>();
+	String lastDeleted;
 	public static void main(String[] args) {
 		_02_TextUndoRedo TUR = new _02_TextUndoRedo();
 		TUR.run();
@@ -54,16 +55,28 @@ public class _02_TextUndoRedo<Integers> implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE && letters.size() >= 1) {
-			letters.pop();
+		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			if(!letters.isEmpty()) {
+			lastDeleted=letters.pop();
+			deleted.push(lastDeleted);
 			text=text.substring(0, text.length()-1);
 			label.setText(text);
+			frame.repaint();
 			frame.pack();
+			}
+			else {
+				System.out.println("You need letters to delete stuff you moron.");
+			}
 		} else if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-
-		}
-		else if( e.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
-			System.out.println("You need letters to delete stuff you moron.");
+			if(!deleted.isEmpty()) {
+			text+=deleted.pop();
+			letters.push(text);
+			label.setText(text);
+			frame.pack();
+			}
+			else {
+				System.out.println("You can't undo nothing");
+			}
 		}
 		else {
 			char ch = e.getKeyChar();
