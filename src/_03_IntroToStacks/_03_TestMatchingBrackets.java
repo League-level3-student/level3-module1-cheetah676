@@ -18,28 +18,34 @@ public class _03_TestMatchingBrackets {
 		assertFalse(doBracketsMatch("}{"));
 	}
 
-	// USE A STACK TO COMPLETE THE METHOD FOR CHECKING IF EVERY OPENING BRACKET HAS A MATCHING CLOSING BRACKET
+	// USE A STACK TO COMPLETE THE METHOD FOR CHECKING IF EVERY OPENING BRACKET HAS
+	// A MATCHING CLOSING BRACKET
 	private boolean doBracketsMatch(String b) {
-		boolean matchingBrackets=false;
-		Stack <Character> brackets=new Stack<Character>();
-		for (int i = 0; i<b.length(); i++) {
-			char letter=b.charAt(i);
+		boolean matchingBrackets = false;
+		Stack<Character> brackets = new Stack<Character>();
+		Stack<Character> check = new Stack<Character>();
+		for (int i = 0; i < b.length(); i++) {
+			char letter = b.charAt(i);
 			brackets.push(letter);
 		}
-		for(int i=0; i<b.length(); i++) {
-			Character newBracket=brackets.pop();
-			if(newBracket=='{') {
-				brackets.push(newBracket);
+		for (int i = 0; i < b.length(); i++) {
+			if (!brackets.isEmpty()) {
+				Character newBracket = brackets.pop();
+				if (newBracket == '}') {
+					check.push(newBracket);
+				} else if (!check.isEmpty() && newBracket == '{') {
+					check.pop();
+				} else if (check.isEmpty() && newBracket == '{') {
+					matchingBrackets = false;
+					check.push(newBracket);
+					break;
+				}
 			}
-			else if(newBracket=='}') {
-				brackets.pop();
-			}
-			if(brackets.isEmpty()) {
-				matchingBrackets=true;
-			}
-			}
-	System.out.println(matchingBrackets);
+		}
+		if (check.isEmpty()) {
+			matchingBrackets = true;
+		}
 		System.out.println(matchingBrackets);
 		return matchingBrackets;
-		}
 	}
+}
