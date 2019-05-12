@@ -92,9 +92,9 @@ public class HangMan extends Utilities implements KeyListener {
 				}
 				else {
 					sb.setCharAt(i, typedIn);
+					totalTyped++;
 					System.out.println(totalTyped);
 					frame.pack();
-					totalTyped++;
 				}
 			} else {
 				numberOfLives -= 1;
