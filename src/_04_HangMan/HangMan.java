@@ -17,7 +17,6 @@ public class HangMan extends Utilities implements KeyListener {
 	String underscores = "";
 	String word = "";
 	int numberOfLives = 10;
-	String stringLives = Integer.toString(numberOfLives);
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel();
@@ -34,7 +33,7 @@ public class HangMan extends Utilities implements KeyListener {
 		panel.add(label);
 		panel.add(lives);
 		frame.setVisible(true);
-		lives.setText("   Lives=" + stringLives);
+		lives.setText("   Lives=" + numberOfLives);
 		frame.addKeyListener(this);
 		String randomWord;
 		boolean newWord = true;
@@ -89,23 +88,37 @@ public class HangMan extends Utilities implements KeyListener {
 			if (word.charAt(i) == typedIn) {
 				if(!typedInStack.contains(typedIn)) {
 					typedInStack.push(typedIn);
-				}
-				else {
+					for(int k=0; k>word.length()-i; k++) {
+						int extra=0;
+						extra++;
+						if(word.charAt(i+extra)==typedIn) {
+							sb.setCharAt(i+extra, typedIn);
+							totalTyped++;
+						}
+					}
 					sb.setCharAt(i, typedIn);
 					totalTyped++;
 					System.out.println(totalTyped);
 					frame.pack();
 				}
-			} else {
-				numberOfLives -= 1;
 			}
+			else {
+				numberOfLives-=1;
+				}	
 			if (totalTyped == word.length()) {
 				wordComplete = true;
+				totalTyped=0;
+				int totalInStack=typedInStack.size();
+				for(int j=0; j<totalInStack; j++) {
+					typedInStack.pop();
+				}
 				System.out.println("yee");
+				frame.pack();
 			}
 		}
 		label.setText(sb.toString());
 		if (wordComplete == true) {
+			label.setText("");
 			createNewWord();
 		}
 	}
