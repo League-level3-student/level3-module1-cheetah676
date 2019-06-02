@@ -31,7 +31,12 @@ private String[] keys;
 		//E. set the last element of the new int array to the passed in value
 		intArray[intArray.length-1]=value;
 		//F. iterate through the keys and values and copy the elements to the new arrays
-		
+		for(int k=0; k<keys.length; k++) {
+			stringArray[k]=keys[k];
+		}
+		for(int o=0; o<values.length; o++) {
+			intArray[o]=values[o];
+		}
 		//G. Set the keys and values arrays equal to the new arrays created in steps B and C.
 		
 }
