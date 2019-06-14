@@ -13,15 +13,17 @@ import javax.swing.JPanel;
 public class HangMan extends Utilities implements KeyListener {
 	boolean wordComplete = true;
 	Stack<String> allWords = new Stack<String>();
-	Stack<Character> typedInStack=new Stack<Character>();
+	Stack<Character> typedInStack = new Stack<Character>();
 	String underscores = "";
 	String word = "";
+	String words;
 	int numberOfLives = 10;
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel();
 	JLabel lives = new JLabel();
-	boolean correctLetter=false;
+	boolean correctLetter = false;
+
 	public static void main(String[] args) {
 		HangMan HM = new HangMan();
 		HM.run();
@@ -36,7 +38,7 @@ public class HangMan extends Utilities implements KeyListener {
 		frame.addKeyListener(this);
 		String randomWord;
 		boolean newWord = true;
-		String words = JOptionPane.showInputDialog(null, "How many word do you want, under 266");
+		words = JOptionPane.showInputDialog(null, "How many word do you want, under 266");
 		int numberOfWords = Integer.parseInt(words);
 		if (numberOfWords <= 266) {
 			for (int i = 0; i < numberOfWords; i++) {
@@ -57,13 +59,10 @@ public class HangMan extends Utilities implements KeyListener {
 					}
 				}
 			}
-			if (wordComplete == true) {
-				createNewWord();
-				wordComplete = false;
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Try again");
-			run();
+		}
+		if (wordComplete == true) {
+			createNewWord();
+			wordComplete = false;
 		}
 	}
 
@@ -75,51 +74,93 @@ public class HangMan extends Utilities implements KeyListener {
 		}
 		label.setText(underscores);
 		frame.pack();
-		if(numberOfLives==0) {
-			int playAgain=JOptionPane.showConfirmDialog(null, "Game Over!  Would you like to play again?");
-			if(playAgain==)
+	}
+
+	void reset() {
+		words = JOptionPane.showInputDialog(null, "How many word do you want, under 266");
+		int numberOfWords = Integer.parseInt(words);
+		String randomWord;
+		boolean newWord = true;
+		if (numberOfWords <= 266) {
+			for (int i = 0; i < numberOfWords; i++) {
+				randomWord = readRandomLineFromFile("dictionary.txt");
+				if (!allWords.contains(randomWord)) {
+					allWords.push(randomWord);
+					newWord = true;
+				} else {
+					newWord = false;
+				}
+				while (newWord == false) {
+					randomWord = readRandomLineFromFile("dictionary.txt");
+					if (!allWords.contains(randomWord)) {
+						allWords.push(randomWord);
+						newWord = true;
+					} else {
+						newWord = false;
+					}
+				}
+			}
+		}
+		wordComplete = true;
+		underscores = "";
+		word = "";
+		numberOfLives = 10;
+		correctLetter = false;
+		lives.setText("   Lives=" + numberOfLives);
+		createNewWord();
+		int allWordsLength=allWords.size();
+		for(int h=0; h<allWordsLength; h++) {
+			allWords.pop();
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		correctLetter=false;
+		correctLetter = false;
 		// TODO Auto-generated method stub
 		char typedIn = e.getKeyChar();
 		StringBuilder sb = new StringBuilder(label.getText());
-		underscores=label.getText();
+		underscores = label.getText();
 		for (int i = 0; i < word.length(); i++) {
 			if (word.charAt(i) == typedIn) {
 				sb.setCharAt(i, typedIn);
-					typedInStack.push(typedIn);
-					frame.pack();
-					correctLetter=true;
+				typedInStack.push(typedIn);
+				frame.pack();
+				correctLetter = true;
 			}
 		}
 		if (word.equals(underscores)) {
 			wordComplete = true;
-			int totalInStack=typedInStack.size();
-			for(int j=0; j<totalInStack; j++) {
+			int totalInStack = typedInStack.size();
+			for (int j = 0; j < totalInStack; j++) {
 				typedInStack.pop();
 			}
 			System.out.println("yee");
 			frame.pack();
 		}
-		if(correctLetter==false) {
-			numberOfLives-=1;
+		if (correctLetter == false) {
+			numberOfLives -= 1;
 			lives.setText("   Lives=" + numberOfLives);
-			}	
+		}
 		label.setText(sb.toString());
 		if (wordComplete == true) {
-			if(allWords.size()==0) {
-				JOptionPane.showMessageDialog(null, "You win with "+numberOfLives+ " lives left");
+			if (allWords.size() == 0) {
+				JOptionPane.showMessageDialog(null, "You win with " + numberOfLives + " lives left");
+				System.exit(0);
+			} else {
+				underscores = "";
+				label.setText("");
+				numberOfLives = 10;
+				lives.setText("   Lives=" + numberOfLives);
+				createNewWord();
 			}
-			else {
-			underscores="";
-			label.setText("");
-			numberOfLives=10;
-			lives.setText("   Lives=" + numberOfLives);
-			createNewWord();
+		}
+		if (numberOfLives == 0) {
+			int playAgain = JOptionPane.showConfirmDialog(null, "Game Over!  Would you like to play again?");
+			if (playAgain == JOptionPane.YES_OPTION) {
+				reset();
+			} else {
+				System.exit(0);
 			}
 		}
 	}

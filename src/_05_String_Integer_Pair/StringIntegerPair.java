@@ -38,36 +38,59 @@ private String[] keys;
 			intArray[o]=values[o];
 		}
 		//G. Set the keys and values arrays equal to the new arrays created in steps B and C.
-		
+		keys=stringArray;
+		values=intArray;
 }
 	
 	//5. Complete the method so it returns the value located at the passed in key.
 	//   If the key does not exist, return Integer.MIN_VALUE.
 	public int get(String key) {
-		return 0;
+		int keysLength=keys.length;
+		int returnValue=Integer.MIN_VALUE;
+		for(int zero=0; zero<keysLength; zero++) {
+			if(key==keys[zero]) {
+				zero=returnValue;
+			}
+		}
+		return returnValue;
 	}
 	
 	//6. Complete the containsKey method so that it returns true if the
 	//   passed in keys is contained in the keys array
 	public boolean containsKey(String key) {
-		
-		return false;
+		int keysLength=keys.length;
+		boolean returnValue=false;
+		for(int zero=0; zero<keysLength; zero++) {
+			if(key==keys[zero]) {
+				returnValue=true;
+			}
+		}
+		return returnValue;
 	}
-	
 	//7. Complete the containsValue method so that it returns true if the
 	//   passed in value is contained in the values array
 	public boolean containsValue(int value) {
-		
-		return false;
+		int valuesLength=values.length;
+		boolean returnValue=false;
+		for(int i=0; i<valuesLength; i++) {
+			if(values[i]==value) {
+				returnValue=true;
+			}
+		}
+		return returnValue;
 	}
 	
 	//8. Complete the getKeysMethod so it returns the keys as an array
 	public String[] getKeys() {
-		return null;
+		String [] getKeysArray;
+		getKeysArray=getKeys();
+		return getKeysArray;
 	}
 	
 	//9. Complete the getValues so it returns the values as an array
 	public int[] getValues() {
-		return null;
+		int [] getValuesArray;
+		getValuesArray=getValues();
+		return getValuesArray;
 	}
 }
