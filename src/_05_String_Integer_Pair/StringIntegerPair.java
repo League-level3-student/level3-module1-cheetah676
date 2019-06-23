@@ -8,7 +8,7 @@ private String[] keys;
 	StringIntegerPair(){
 		//3. initialize both member arrays to a length of 0
 		keys=new String[0];
-		values=new int[0];
+		values=new int[0]; 
 	}
 	
 	// 4. Complete the steps in the put method
@@ -16,9 +16,9 @@ private String[] keys;
 		//A. iterate through the keys. If you find a key that matches
 		//   the passed in String, set the value at that location to the
 		//   passed in value and return from the method.
-		for(int i=0; i<keys.length; i++) {
-			if(keys[i]==key) {
-				value=i;
+		for(int p=0; p<keys.length; p++) {
+			if(keys[p].equals(key)) {
+				value=p;
 			}
 		}
 	
@@ -47,9 +47,9 @@ private String[] keys;
 	public int get(String key) {
 		int keysLength=keys.length;
 		int returnValue=Integer.MIN_VALUE;
-		for(int zero=0; zero<keysLength; zero++) {
-			if(key==keys[zero]) {
-				zero=returnValue;
+		for(int i=0; i<keysLength; i++) {
+			if(key.equals(keys[i])) {
+				returnValue=i;
 			}
 		}
 		return returnValue;
