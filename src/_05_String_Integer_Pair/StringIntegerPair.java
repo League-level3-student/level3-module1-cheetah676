@@ -17,7 +17,7 @@ private String[] keys;
 		//   the passed in String, set the value at that location to the
 		//   passed in value and return from the method.
 		for(int p=0; p<keys.length; p++) {
-			if(keys[p].equals(key)) {
+			if(key.equals(keys[p])) {
 				value=p;
 			}
 		}
