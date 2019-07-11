@@ -18,10 +18,9 @@ private String[] keys;
 		//   passed in value and return from the method.
 		for(int p=0; p<keys.length; p++) {
 			if(key.equals(keys[p])) {
-				value=p;
+				p=value;
 			}
 		}
-	
 			//B. create a String array that is one element longer than the keys
 		String[] stringArray=new String[keys.length+1];
 		//C. create an integer array that is one element longer than values
@@ -49,7 +48,7 @@ private String[] keys;
 		int returnValue=Integer.MIN_VALUE;
 		for(int i=0; i<keysLength; i++) {
 			if(key.equals(keys[i])) {
-				returnValue=i;
+				returnValue=i+1;
 			}
 		}
 		return returnValue;
@@ -82,15 +81,11 @@ private String[] keys;
 	
 	//8. Complete the getKeysMethod so it returns the keys as an array
 	public String[] getKeys() {
-		String [] getKeysArray;
-		getKeysArray=getKeys();
-		return getKeysArray;
+		return keys;
 	}
 	
 	//9. Complete the getValues so it returns the values as an array
 	public int[] getValues() {
-		int [] getValuesArray;
-		getValuesArray=getValues();
-		return getValuesArray;
+		return values;
 	}
 }
